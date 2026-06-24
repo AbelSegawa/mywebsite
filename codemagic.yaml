@@ -1,16 +1,17 @@
 workflows:
   nymala-android:
     name: Nymala Academy Android
+    instance_type: linux
     max_build_duration: 60
     environment:
       vars:
         PYTHON_VERSION: 3.10
-      flutter: none
-      xcode: none
     scripts:
-      - name: Install Buildozer
+      - name: Install Buildozer + deps
         script: |
           python3 -m pip install buildozer cython
+          sudo apt-get update
+          sudo apt-get install -y zip unzip openjdk-17-jdk
       - name: Build APK
         script: |
           cd $CM_BUILD_DIR
@@ -20,4 +21,4 @@ workflows:
     publishing:
       email:
         recipients:
-          - abelsegawa9@gmail.com # change to your email
+          - abelsegawa9@gmail.com  # change to your email
